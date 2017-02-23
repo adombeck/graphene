@@ -8,6 +8,9 @@ from google.protobuf import message as _message
 from Crypto.PublicKey import RSA
 import aesm_pb2
 
+AESMD_ADDRESS = ("127.0.0.1", 34343)
+
+
 """ Utilities """
 
 def int_to_bytes(i):
@@ -66,8 +69,8 @@ def connect_aesmd(attr):
 
     req_msg_raw = req_msg.SerializeToString()
 
-    aesm_service = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    aesm_service.connect("\0sgx_aesm_socket_base" + "\0" * 87)
+    aesm_service = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    aesm_service.connect(AESMD_ADDRESS)
 
     aesm_service.send(struct.pack("<I", len(req_msg_raw)))
     aesm_service.send(req_msg_raw)
