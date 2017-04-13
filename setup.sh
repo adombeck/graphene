@@ -5,6 +5,7 @@ set -e
 echo "Checking if running in correct OS..."
 ([[ `lsb_release -a 2> /dev/null` == *"14.04"* ]] || [[ `lsb_release -a 2> /dev/null` == *"16.04"* ]]) || (echo "Wrong OS. Run on Ubuntu 14.04 or Ubuntu 16.04."; exit 1)
 
+NUM_THREADS=8
 DIR=$PWD
 
 # Get sudo password in the beginning
@@ -25,7 +26,9 @@ done
 make clean
 
 # Make with debug symbols and SGX support
-make SGX=1 DEBUG=1
+make -C Pal SGX=1 DEBUG=1
+make -C LibOS -j$NUM_THREADS SGX=1 DEBUG=1
+make -C Runtime -j$NUM_THREADS SGX=1 DEBUG=1
 
 cd $DIR/Pal/src/host/Linux-SGX/sgx-driver
 make
