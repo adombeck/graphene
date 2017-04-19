@@ -28,7 +28,7 @@ make clean
 # Make with debug symbols and SGX support
 make -C Pal SGX=1 DEBUG=1
 make -C LibOS -j$NUM_THREADS SGX=1 DEBUG=1
-make -C Runtime -j$NUM_THREADS SGX=1 DEBUG=1
+# make -C Runtime -j$NUM_THREADS SGX=1 DEBUG=1
 
 cd $DIR/Pal/src/host/Linux-SGX/sgx-driver
 make
