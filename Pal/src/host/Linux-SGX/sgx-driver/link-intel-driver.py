@@ -11,7 +11,7 @@ try:
     print "Make sure you have downloaded and installed the Intel sgx driver " + \
           "from https://github.com/01org/linux-sgx-driver."
     while True:
-        isgx = raw_input('Enter the Intel sgx driver derctory: ')
+        isgx = raw_input('Enter the Intel sgx driver directory: ')
         if os.path.exists(isgx + '/isgx.h'):
             break
         print '{0} is not a directory for the Intel sgx driver'.format(isgx)
